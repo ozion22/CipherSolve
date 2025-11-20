@@ -26,6 +26,7 @@ public class Ceasar implements Cipher {
     public Ceasar(int shift, ArrayList<Character> ALPHABET) {
         this.ALPHABET = ALPHABET;
         this.shift = ((shift % ALPHABET.size()) + ALPHABET.size()) % ALPHABET.size();
+        /* Double modulo to deal with negative shifts */
     }
 
     public String encrypt(String stringToEncrypt) {
