@@ -1,28 +1,45 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Vigenere implements Cipher {
+/**
+ * A class representing a simple vigenére cipher.
+ * 
+ * Please be aware that encryption/decryption <b>preserves</b> whitespace unless
+ * using discardWhitespace
+ */
+public class Vigenere extends Cipher {
 
-    private final ArrayList<Character> ALPHABET;
+    private Alphabet alphabet;
     private final String key;
     private final HashMap<Character, Integer> alphabetMap;
 
-    public Vigenere(ArrayList<Character> ALPHABET, String key) {
-        if (key.length() == 0 || key == null) {
+    /**
+     * Constructs this handler for a vigenére cipher given the ALPHABET and key
+     * 
+     * @param ALPHABET ALPHABET to use.
+     * @param key      Key to use
+     */
+    public Vigenere(Alphabet ALPHABET, String key) {
+        if (key == null || key.length() == 0) {
             throw new IllegalArgumentException("Key must not be empty/null!");
         }
-        this.ALPHABET = ALPHABET;
-        this.key = key;
+        this.alphabet = ALPHABET;
+        this.key = new String(key);
         this.alphabetMap = new HashMap<>();
         for (int i = 0; i < ALPHABET.size(); i++) {
             alphabetMap.put(ALPHABET.get(i), i);
         }
     }
 
-    private String makeRepeatingKey(String key, int length) {
-        if (key.isEmpty() || key == null) {
-            throw new StringIndexOutOfBoundsException("Key must not be empty/null!");
+    /**
+     * Makes a repeating key of length length
+     * 
+     * @param key    The key
+     * @param length Length
+     * @return The repeated Key
+     */
+    public static String makeRepeatingKey(String key, int length) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key must not be empty/null!");
         }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -31,6 +48,9 @@ public class Vigenere implements Cipher {
         return result.toString();
     }
 
+    /**
+     * Encrypts given key specified in constructor, !!preserves whitespace!!
+     */
     public String encrypt(String stringToEncrypt) {
         StringBuilder result = new StringBuilder();
         String repeatedKey = makeRepeatingKey(key, stringToEncrypt.length());
@@ -46,16 +66,44 @@ public class Vigenere implements Cipher {
 
             int plainIndex = alphabetMap.get(plainChar);
             int shift = alphabetMap.get(keyChar);
-            int encryptedIndex = (plainIndex + shift) % ALPHABET.size();
+            int encryptedIndex = ((plainIndex + shift) + alphabet.size()) % alphabet.size();
 
-            result.append(ALPHABET.get(encryptedIndex));
+            result.append(alphabet.get(encryptedIndex));
         }
 
         return result.toString();
     }
 
-    public String decrypt(String stringToDecrypt) {
-
+    /**
+     * Encrypts a string given the key used in the constructor, removes whitespace
+     * after encryption
+     * 
+     * @param stringToEncrypt Plaintext to encrypt
+     * @return Ciphertext with whitespace removed
+     */
+    public String encryptDiscardWhitespace(String stringToEncrypt) {
+        return encrypt(stringToEncrypt).replaceAll("\\s+", "");
     }
 
+    public String decrypt(String stringToDecrypt) {
+        StringBuilder result = new StringBuilder();
+        String repeatedKey = makeRepeatingKey(this.key, stringToDecrypt.length());
+        for (int i = 0; i < stringToDecrypt.length(); i++) {
+            char encryptedChar = stringToDecrypt.charAt(i);
+            char keyChar = repeatedKey.charAt(i);
+            if (!alphabetMap.containsKey(encryptedChar)) {
+                result.append(encryptedChar);
+                continue;
+            }
+            int cipherIndex = alphabetMap.get(encryptedChar);
+            int keyIndex = alphabetMap.get(keyChar);
+            int decryptedIndex = ((cipherIndex - keyIndex) + alphabet.size()) % alphabet.size();
+            result.append(alphabet.get(decryptedIndex));
+        }
+        return result.toString();
+    }
+
+    public String decryptDiscardWhitespace(String stringToDecrypt) {
+        return decrypt(stringToDecrypt).replaceAll("\\s+", "");
+    }
 }

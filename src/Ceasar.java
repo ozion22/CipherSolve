@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Ceasar implements Cipher {
+public class Ceasar extends Cipher {
     private final int shift;
     private final List<Character> ALPHABET;
 
