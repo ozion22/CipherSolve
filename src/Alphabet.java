@@ -1,3 +1,4 @@
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class Alphabet {
@@ -47,6 +48,19 @@ public class Alphabet {
         for (int i = from; i <= to; i++) {
             this.ALPHABET.add((char) i);
         }
+    }
+
+    /**
+     * Constructs an Alphabet handler given the Charset
+     * 
+     * @param charset Charset to use
+     */
+    public Alphabet(Charset charset) {
+        this.ALPHABET = new ArrayList<>();
+        for (byte b : charset.name().getBytes()) {
+            this.ALPHABET.add((char) b);
+        }
+
     }
 
     public String toString() {

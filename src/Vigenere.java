@@ -22,6 +22,11 @@ public class Vigenere extends Cipher {
         if (key == null || key.length() == 0) {
             throw new IllegalArgumentException("Key must not be empty/null!");
         }
+        for (char c : key.toCharArray()) {
+            if (!ALPHABET.getALPHABET().contains(c)) {
+                throw new IllegalArgumentException("Key contains characters not in alphabet!");
+            }
+        }
         this.alphabet = ALPHABET;
         this.key = new String(key);
         this.alphabetMap = new HashMap<>();

@@ -1,10 +1,11 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+/**
+ * A class representing a simple ceasar cipher.
+ */
 public class Ceasar extends Cipher {
     private final int shift;
-    private final List<Character> ALPHABET;
+    private Alphabet alphabet;
 
     /**
      * Initialises a Ceasar chipher with standard <b>lowercase</b> english alphabet
@@ -13,8 +14,7 @@ public class Ceasar extends Cipher {
      */
     public Ceasar(int shift) {
         this.shift = ((shift % 26) + 26) % 26;
-        this.ALPHABET = List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+        this.alphabet = new Alphabet();
     }
 
     /**
@@ -23,22 +23,23 @@ public class Ceasar extends Cipher {
      * @param shift    The shift to use
      * @param ALPHABET Alphabet to use
      */
-    public Ceasar(int shift, ArrayList<Character> ALPHABET) {
-        this.ALPHABET = ALPHABET;
+    public Ceasar(int shift, Alphabet ALPHABET) {
+        this.alphabet = new Alphabet(ALPHABET.getALPHABET());
         this.shift = ((shift % ALPHABET.size()) + ALPHABET.size()) % ALPHABET.size();
         /* Double modulo to deal with negative shifts */
     }
 
     public String encrypt(String stringToEncrypt) {
         HashMap<Character, Character> encHashMap = new HashMap<>();
-        for (Character character : ALPHABET) {
-            int shiftedIndex = (((ALPHABET.indexOf(character) + shift) % ALPHABET.size()) + ALPHABET.size())
-                    % ALPHABET.size();
-            encHashMap.put(character, ALPHABET.get(shiftedIndex));
+        for (Character character : alphabet.getALPHABET()) {
+            int shiftedIndex = (((alphabet.getALPHABET().indexOf(character) + shift) % alphabet.size())
+                    + alphabet.size())
+                    % alphabet.size();
+            encHashMap.put(character, alphabet.get(shiftedIndex));
         }
         StringBuilder result = new StringBuilder();
         for (Character character : stringToEncrypt.toCharArray()) {
-            if (ALPHABET.contains(character)) {
+            if (alphabet.getALPHABET().contains(character)) {
                 result.append(encHashMap.get(character));
             } else {
                 result.append(character);
@@ -49,14 +50,15 @@ public class Ceasar extends Cipher {
 
     public String decrypt(String stringTodecrypt) {
         HashMap<Character, Character> decHashMap = new HashMap<>();
-        for (Character character : ALPHABET) {
-            int shiftedIndex = (((ALPHABET.indexOf(character) - shift) % ALPHABET.size()) + ALPHABET.size())
-                    % ALPHABET.size();
-            decHashMap.put(character, ALPHABET.get(shiftedIndex));
+        for (Character character : alphabet.getALPHABET()) {
+            int shiftedIndex = (((alphabet.getALPHABET().indexOf(character) - shift) % alphabet.size())
+                    + alphabet.size())
+                    % alphabet.size();
+            decHashMap.put(character, alphabet.get(shiftedIndex));
         }
         StringBuilder result = new StringBuilder();
         for (Character character : stringTodecrypt.toCharArray()) {
-            if (ALPHABET.contains(character)) {
+            if (alphabet.getALPHABET().contains(character)) {
                 result.append(decHashMap.get(character));
             } else {
                 result.append(character);
