@@ -1,23 +1,25 @@
-public abstract class Cipher {
+/**
+ * Generic cipher interface with parameterised plaintext and ciphertext types.
+ *
+ * @param <P> plaintext type
+ * @param <C> ciphertext type
+ */
+public interface Cipher<P, C> {
+
     /**
-     * Encrypts a string given the parameters of the constructor, see individual
-     * classes for more info
-     * 
+     * Encrypts a plaintext value to a ciphertext value.
+     *
      * @param plaintext Plaintext to encrypt
      * @return The resulting ciphertext
      */
-    public String encrypt(String plaintext) {
-        return null;
-    }
+    C encrypt(P plaintext);
 
     /**
-     * Decrypts a string given the parameters of the constructor, see individual
-     * classes for more info
-     * 
+     * Decrypts a ciphertext value to a plaintext value.
+     *
      * @param ciphertext Ciphertext to decrypt
      * @return The resulting plaintext
      */
-    public String decrypt(String ciphertext) {
-        return null;
-    }
+    P decrypt(C ciphertext);
+
 }

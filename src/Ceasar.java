@@ -3,7 +3,7 @@ import java.util.HashMap;
 /**
  * A class representing a simple ceasar cipher.
  */
-public class Ceasar extends Cipher {
+public class Ceasar implements Cipher<String, String> {
     private final int shift;
     private Alphabet alphabet;
 
@@ -24,22 +24,22 @@ public class Ceasar extends Cipher {
      * @param ALPHABET Alphabet to use
      */
     public Ceasar(int shift, Alphabet ALPHABET) {
-        this.alphabet = new Alphabet(ALPHABET.getALPHABET());
+        this.alphabet = new Alphabet(ALPHABET.getAlphabetArrayList());
         this.shift = ((shift % ALPHABET.size()) + ALPHABET.size()) % ALPHABET.size();
         /* Double modulo to deal with negative shifts */
     }
 
     public String encrypt(String stringToEncrypt) {
         HashMap<Character, Character> encHashMap = new HashMap<>();
-        for (Character character : alphabet.getALPHABET()) {
-            int shiftedIndex = (((alphabet.getALPHABET().indexOf(character) + shift) % alphabet.size())
+        for (Character character : alphabet.getAlphabetArrayList()) {
+            int shiftedIndex = (((alphabet.getAlphabetArrayList().indexOf(character) + shift) % alphabet.size())
                     + alphabet.size())
                     % alphabet.size();
             encHashMap.put(character, alphabet.get(shiftedIndex));
         }
         StringBuilder result = new StringBuilder();
         for (Character character : stringToEncrypt.toCharArray()) {
-            if (alphabet.getALPHABET().contains(character)) {
+            if (alphabet.getAlphabetArrayList().contains(character)) {
                 result.append(encHashMap.get(character));
             } else {
                 result.append(character);
@@ -50,15 +50,15 @@ public class Ceasar extends Cipher {
 
     public String decrypt(String stringTodecrypt) {
         HashMap<Character, Character> decHashMap = new HashMap<>();
-        for (Character character : alphabet.getALPHABET()) {
-            int shiftedIndex = (((alphabet.getALPHABET().indexOf(character) - shift) % alphabet.size())
+        for (Character character : alphabet.getAlphabetArrayList()) {
+            int shiftedIndex = (((alphabet.getAlphabetArrayList().indexOf(character) - shift) % alphabet.size())
                     + alphabet.size())
                     % alphabet.size();
             decHashMap.put(character, alphabet.get(shiftedIndex));
         }
         StringBuilder result = new StringBuilder();
         for (Character character : stringTodecrypt.toCharArray()) {
-            if (alphabet.getALPHABET().contains(character)) {
+            if (alphabet.getAlphabetArrayList().contains(character)) {
                 result.append(decHashMap.get(character));
             } else {
                 result.append(character);

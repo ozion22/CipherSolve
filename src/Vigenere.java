@@ -6,10 +6,11 @@ import java.util.HashMap;
  * Please be aware that encryption/decryption <b>preserves</b> whitespace unless
  * using discardWhitespace
  */
-public class Vigenere extends Cipher {
+public class Vigenere implements Cipher<String, String> {
 
     private Alphabet alphabet;
     private final String key;
+    /* key: "hallå" */
     private final HashMap<Character, Integer> alphabetMap;
 
     /**
@@ -23,7 +24,7 @@ public class Vigenere extends Cipher {
             throw new IllegalArgumentException("Key must not be empty/null!");
         }
         for (char c : key.toCharArray()) {
-            if (!ALPHABET.getALPHABET().contains(c)) {
+            if (!ALPHABET.getAlphabetArrayList().contains(c)) {
                 throw new IllegalArgumentException("Key contains characters not in alphabet!");
             }
         }

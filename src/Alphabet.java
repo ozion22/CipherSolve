@@ -1,7 +1,8 @@
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Alphabet {
+public class Alphabet implements Iterable<Character> {
     private final ArrayList<Character> ALPHABET;
 
     /**
@@ -63,6 +64,11 @@ public class Alphabet {
 
     }
 
+    public static Alphabet reverse(Alphabet alphabetToReverse) {
+        return new Alphabet((ArrayList<Character>) alphabetToReverse.getAlphabetArrayList().reversed());
+
+    }
+
     public String toString() {
         StringBuilder result = new StringBuilder();
         for (Character character : ALPHABET) {
@@ -75,7 +81,7 @@ public class Alphabet {
         return ALPHABET.contains(c);
     }
 
-    public ArrayList<Character> getALPHABET() {
+    public ArrayList<Character> getAlphabetArrayList() {
         return new ArrayList<>(ALPHABET);
     }
 
@@ -85,6 +91,10 @@ public class Alphabet {
 
     public char get(int index) {
         return ALPHABET.get(index);
+    }
+
+    public Iterator<Character> iterator() {
+        return this.getAlphabetArrayList().iterator();
     }
 
 }
