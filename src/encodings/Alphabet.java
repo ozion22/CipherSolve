@@ -1,4 +1,5 @@
-import java.nio.charset.Charset;
+package encodings;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -51,21 +52,16 @@ public class Alphabet implements Iterable<Character> {
         }
     }
 
-    /**
-     * Constructs an Alphabet handler given the Charset
-     * 
-     * @param charset Charset to use
-     */
-    public Alphabet(Charset charset) {
-        this.ALPHABET = new ArrayList<>();
-        for (byte b : charset.name().getBytes()) {
-            this.ALPHABET.add((char) b);
-        }
-
-    }
-
     public static Alphabet reverse(Alphabet alphabetToReverse) {
-        return new Alphabet((ArrayList<Character>) alphabetToReverse.getAlphabetArrayList().reversed());
+        ArrayList<Character> charList = new ArrayList<>(alphabetToReverse.getAlphabetArrayList());
+        // Sliding-swap
+        for (int i = 0; i < (charList.size() / 2); i++) {
+            char char1 = charList.get(i);
+            char char2 = charList.get((charList.size() - 1) - i);
+            charList.set(i, char2);
+            charList.set((charList.size() - 1) - i, char1);
+        }
+        return new Alphabet(charList);
 
     }
 

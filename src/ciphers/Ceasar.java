@@ -1,4 +1,7 @@
+package ciphers;
+
 import java.util.HashMap;
+import encodings.Alphabet;
 
 /**
  * A class representing a simple ceasar cipher.

@@ -1,4 +1,8 @@
+package ciphers;
+
 import java.util.HashMap;
+
+import encodings.Alphabet;
 
 public class Atbash implements Cipher<String, String> {
     private Alphabet alphabet;
@@ -7,6 +11,7 @@ public class Atbash implements Cipher<String, String> {
     public Atbash(Alphabet ALPHABET) {
         this.alphabet = new Alphabet(ALPHABET.getAlphabetArrayList());
         Alphabet reversedAlphabet = Alphabet.reverse(alphabet);
+        this.encDecHashMap = new HashMap<>();
         int i = 0;
         for (char c : alphabet) {
             encDecHashMap.put(c, reversedAlphabet.get(i));

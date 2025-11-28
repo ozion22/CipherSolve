@@ -1,4 +1,7 @@
+package ciphers;
+
 import java.util.HashMap;
+import encodings.*;
 
 /**
  * A class representing a simple vigenére cipher.

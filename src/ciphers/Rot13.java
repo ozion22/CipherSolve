@@ -1,3 +1,7 @@
+package ciphers;
+
+import encodings.*;
+
 public class Rot13 extends Ceasar {
 
     public Rot13(Alphabet alphabet) {

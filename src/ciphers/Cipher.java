@@ -1,3 +1,5 @@
+package ciphers;
+
 /**
  * Generic cipher interface with parameterised plaintext and ciphertext types.
  *
