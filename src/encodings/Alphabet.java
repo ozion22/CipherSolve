@@ -3,6 +3,12 @@ package encodings;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * A class representing alphabets used in encoding/decoding within CipherSolve.
+ * 
+ * @author Tim Saaranen
+ * @version 2025-11-30
+ */
 public class Alphabet implements Iterable<Character> {
     private final ArrayList<Character> ALPHABET;
 

@@ -5,6 +5,8 @@ package ciphers;
  *
  * @param <P> plaintext type
  * @param <C> ciphertext type
+ * @author Tim Saaranen
+ * @version 2025-11-30
  */
 public interface Cipher<P, C> {
 

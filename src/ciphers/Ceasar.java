@@ -5,6 +5,10 @@ import encodings.Alphabet;
 
 /**
  * A class representing a simple ceasar cipher.
+ * 
+ * @author Tim Saaranen
+ * @version 2025-11-30
+ * 
  */
 public class Ceasar implements Cipher<String, String> {
     private final int shift;
@@ -32,6 +36,7 @@ public class Ceasar implements Cipher<String, String> {
         /* Double modulo to deal with negative shifts */
     }
 
+    @Override
     public String encrypt(String stringToEncrypt) {
         HashMap<Character, Character> encHashMap = new HashMap<>();
         for (Character character : alphabet.getAlphabetArrayList()) {
@@ -51,6 +56,7 @@ public class Ceasar implements Cipher<String, String> {
         return result.toString();
     }
 
+    @Override
     public String decrypt(String stringTodecrypt) {
         HashMap<Character, Character> decHashMap = new HashMap<>();
         for (Character character : alphabet.getAlphabetArrayList()) {

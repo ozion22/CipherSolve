@@ -8,6 +8,9 @@ import encodings.*;
  * 
  * Please be aware that encryption/decryption <b>preserves</b> whitespace unless
  * using discardWhitespace
+ * 
+ * @author Tim Saaranen
+ * @version 2025-11-30
  */
 public class Vigenere implements Cipher<String, String> {
 
@@ -60,6 +63,7 @@ public class Vigenere implements Cipher<String, String> {
     /**
      * Encrypts given key specified in constructor, !!preserves whitespace!!
      */
+    @Override
     public String encrypt(String stringToEncrypt) {
         StringBuilder result = new StringBuilder();
         String repeatedKey = makeRepeatingKey(key, stringToEncrypt.length());
@@ -94,6 +98,7 @@ public class Vigenere implements Cipher<String, String> {
         return encrypt(stringToEncrypt).replaceAll("\\s+", "");
     }
 
+    @Override
     public String decrypt(String stringToDecrypt) {
         StringBuilder result = new StringBuilder();
         String repeatedKey = makeRepeatingKey(this.key, stringToDecrypt.length());

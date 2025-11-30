@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import encodings.Alphabet;
 
+/**
+ * A class representing the classical atbash (reversed alphabet) cipher
+ * 
+ * @author Tim Saaranen
+ * @version 2025-11-30
+ */
 public class Atbash implements Cipher<String, String> {
     private Alphabet alphabet;
     private HashMap<Character, Character> encDecHashMap; // Enc: plaintext -> cipher, dec: cipher -> plaintext
