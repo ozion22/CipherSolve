@@ -2,6 +2,7 @@ package encodings;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A class representing alphabets used in encoding/decoding within CipherSolve.
@@ -10,7 +11,9 @@ import java.util.Iterator;
  * @version 2025-11-30
  */
 public class Alphabet implements Iterable<Character> {
-    private final ArrayList<Character> ALPHABET;
+    private final List<Character> ALPHABET;
+
+    private final CustomBinMap binMap;
 
     /**
      * Constructs an Alphabet handler given the ALPHABET
@@ -19,6 +22,7 @@ public class Alphabet implements Iterable<Character> {
      */
     public Alphabet(ArrayList<Character> ALPHABET) {
         this.ALPHABET = new ArrayList<>(ALPHABET);
+        binMap = new CustomBinMap(ALPHABET);
     }
 
     /**
@@ -29,6 +33,7 @@ public class Alphabet implements Iterable<Character> {
         for (char c = 'a'; c <= 'z'; c++) {
             this.ALPHABET.add(c);
         }
+        binMap = new CustomBinMap(ALPHABET);
     }
 
     public Alphabet(String alphabetString) {
@@ -36,6 +41,7 @@ public class Alphabet implements Iterable<Character> {
         for (char c : alphabetString.toCharArray()) {
             this.ALPHABET.add(c);
         }
+        binMap = new CustomBinMap(ALPHABET);
     }
 
     public Alphabet(char from, char to) {
@@ -43,6 +49,7 @@ public class Alphabet implements Iterable<Character> {
         for (char c = from; c <= to; c++) {
             this.ALPHABET.add(c);
         }
+        binMap = new CustomBinMap(ALPHABET);
     }
 
     /**
@@ -56,6 +63,7 @@ public class Alphabet implements Iterable<Character> {
         for (int i = from; i <= to; i++) {
             this.ALPHABET.add((char) i);
         }
+        binMap = new CustomBinMap(ALPHABET);
     }
 
     public static Alphabet reverse(Alphabet alphabetToReverse) {
@@ -80,7 +88,15 @@ public class Alphabet implements Iterable<Character> {
     }
 
     public boolean contains(char c) {
-        return ALPHABET.contains(c);
+        return binMap.contains(c);
+    }
+
+    public int IndexOf(char c) {
+        return binMap.getIndex(c);
+    }
+
+    public CustomBinMap getBinMap() {
+        return binMap;
     }
 
     public ArrayList<Character> getAlphabetArrayList() {
