@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.io.Serializable;
 
+/**
+ * @author Tim Saaranen
+ * @version 2025-12-02
+ */
 public class CustomBinMap implements Iterable<Character>, Serializable {
 
     private final List<Character> alphabet;
