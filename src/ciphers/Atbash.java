@@ -15,7 +15,7 @@ public class Atbash implements Cipher<String, String> {
     private HashMap<Character, Character> encDecHashMap; // Enc: plaintext -> cipher, dec: cipher -> plaintext
 
     public Atbash(Alphabet ALPHABET) {
-        this.alphabet = new Alphabet(ALPHABET.getAlphabetArrayList());
+        this.alphabet = new Alphabet(ALPHABET);
         Alphabet reversedAlphabet = Alphabet.reverse(alphabet);
         this.encDecHashMap = new HashMap<>();
         int i = 0;

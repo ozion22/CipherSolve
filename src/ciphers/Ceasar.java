@@ -28,11 +28,11 @@ public class Ceasar implements Cipher<String, String> {
      * Initialises a Ceasar cipher with Custom alphabet
      * 
      * @param shift    The shift to use
-     * @param ALPHABET Alphabet to use
+     * @param alphabet Alphabet to use
      */
-    public Ceasar(int shift, Alphabet ALPHABET) {
-        this.alphabet = new Alphabet(ALPHABET.getAlphabetArrayList());
-        this.shift = ((shift % ALPHABET.size()) + ALPHABET.size()) % ALPHABET.size();
+    public Ceasar(int shift, Alphabet alphabet) {
+        this.alphabet = new Alphabet(alphabet);
+        this.shift = ((shift % alphabet.size()) + alphabet.size()) % alphabet.size();
         /* Double modulo to deal with negative shifts */
     }
 

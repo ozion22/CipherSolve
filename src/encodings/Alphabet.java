@@ -11,45 +11,46 @@ import java.util.List;
  * @version 2025-11-30
  */
 public class Alphabet implements Iterable<Character> {
-    private final List<Character> ALPHABET;
-
     private final CustomBinMap binMap;
 
     /**
-     * Constructs an Alphabet handler given the ALPHABET
+     * Constructs an Alphabet handler given the alphabet
      * 
-     * @param ALPHABET ALPHABET to use.
+     * @param alphabet alphabet to use.
      */
-    public Alphabet(ArrayList<Character> ALPHABET) {
-        this.ALPHABET = new ArrayList<>(ALPHABET);
-        binMap = new CustomBinMap(ALPHABET);
+    public Alphabet(ArrayList<Character> alphabet) {
+        binMap = new CustomBinMap(alphabet);
+    }
+
+    public Alphabet(Alphabet alphabetToCopy) {
+        this.binMap = new CustomBinMap(alphabetToCopy.binMap);
     }
 
     /**
      * Constructs an Alphabet handler with standard lowercase english alphabet
      */
     public Alphabet() {
-        this.ALPHABET = new ArrayList<>();
+        ArrayList<Character> alphabet = new ArrayList<>();
         for (char c = 'a'; c <= 'z'; c++) {
-            this.ALPHABET.add(c);
+            alphabet.add(c);
         }
-        binMap = new CustomBinMap(ALPHABET);
+        binMap = new CustomBinMap(alphabet);
     }
 
     public Alphabet(String alphabetString) {
-        this.ALPHABET = new ArrayList<>();
+        ArrayList<Character> alphabet = new ArrayList<>();
         for (char c : alphabetString.toCharArray()) {
-            this.ALPHABET.add(c);
+            alphabet.add(c);
         }
-        binMap = new CustomBinMap(ALPHABET);
+        binMap = new CustomBinMap(alphabet);
     }
 
     public Alphabet(char from, char to) {
-        this.ALPHABET = new ArrayList<>();
+        ArrayList<Character> alphabet = new ArrayList<>();
         for (char c = from; c <= to; c++) {
-            this.ALPHABET.add(c);
+            alphabet.add(c);
         }
-        binMap = new CustomBinMap(ALPHABET);
+        binMap = new CustomBinMap(alphabet);
     }
 
     /**
@@ -59,11 +60,11 @@ public class Alphabet implements Iterable<Character> {
      * @param to   ASCII value to end at
      */
     public Alphabet(int from, int to) {
-        this.ALPHABET = new ArrayList<>();
+        ArrayList<Character> alphabet = new ArrayList<>();
         for (int i = from; i <= to; i++) {
-            this.ALPHABET.add((char) i);
+            alphabet.add((char) i);
         }
-        binMap = new CustomBinMap(ALPHABET);
+        binMap = new CustomBinMap(alphabet);
     }
 
     public static Alphabet reverse(Alphabet alphabetToReverse) {
@@ -81,7 +82,7 @@ public class Alphabet implements Iterable<Character> {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (Character character : ALPHABET) {
+        for (Character character : getAlphabetArrayList()) {
             result.append(character);
         }
         return result.toString();
@@ -91,24 +92,30 @@ public class Alphabet implements Iterable<Character> {
         return binMap.contains(c);
     }
 
-    public int IndexOf(char c) {
-        return binMap.getIndex(c);
+    public int indexOf(char c) {
+        return binMap.indexOf(c);
     }
 
     public CustomBinMap getBinMap() {
         return binMap;
     }
 
-    public ArrayList<Character> getAlphabetArrayList() {
-        return new ArrayList<>(ALPHABET);
+    /**
+     * Returns an unmodifiable List of chars in the alphabet
+     * (see CustomBinMap)
+     * 
+     * @return The list
+     */
+    public List<Character> getAlphabetArrayList() {
+        return binMap.asList();
     }
 
     public int size() {
-        return ALPHABET.size();
+        return binMap.size();
     }
 
     public char get(int index) {
-        return ALPHABET.get(index);
+        return binMap.get(index);
     }
 
     public Iterator<Character> iterator() {
