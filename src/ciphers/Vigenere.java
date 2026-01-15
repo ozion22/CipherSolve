@@ -16,7 +16,6 @@ public class Vigenere implements Cipher<String, String> {
 
     private Alphabet alphabet;
     private final String key;
-    /* key: "hallå" */
     private final HashMap<Character, Integer> alphabetMap;
 
     /**

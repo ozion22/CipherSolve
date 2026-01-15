@@ -1,2 +1,4 @@
+*.class
 
 src/ciphers/Test.java
+/out
